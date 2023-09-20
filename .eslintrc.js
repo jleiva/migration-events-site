@@ -4,8 +4,14 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: ["eslint:recommended", "prettier"],
-  plugins: [],
+  extends: [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+  ],
+  plugins: ["react", "import", "jsx-a11y"],
   overrides: [
     {
       env: {
@@ -24,5 +30,18 @@ module.exports = {
       jsx: true,
     },
   },
-  rules: {},
+  rules: {
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx"],
+      },
+    },
+  },
 };
