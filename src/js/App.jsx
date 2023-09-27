@@ -1,12 +1,22 @@
+import { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Header } from './components/react/Header';
+import { Header } from "./components/react/Header";
 import { MainContent } from "./components/react/MainContent";
+import fetchEventsByCategories from "./services/api";
 
 const App = () => {
+  const [categoryData, setCategoryData] = useState([]);
+
+  const onTabChange = (e) => {
+    const category = e.target.dataset.category;
+
+    fetchEventsByCategories(category).then((data) => setCategoryData(data));
+  };
+
   return (
     <>
-      <Header />
-      <MainContent />
+      <Header onTabChange={onTabChange} />
+      <MainContent categoryData={categoryData} />
     </>
   );
 };

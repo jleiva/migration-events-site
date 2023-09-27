@@ -1,10 +1,25 @@
-const Header = () => {
-  return (
-    <header id="header" class="header">
-      <a href="./account.html" id="my-account">My account &rightarrow;</a>
-      <div id="tabs" class="header__tabs"></div>
-    </header>
-  )
-}
+import { homeTabs } from "../../config";
 
-export { Header }
+const Header = ({ onTabChange }) => {
+  return (
+    <header id="header" className="header">
+      <a href="./account.html" id="my-account">
+        {"My account >"}
+      </a>
+      <div id="tabs" className="header__tabs">
+        {/* Ojo esta marrado a home */}
+        {homeTabs.map((tab) => (
+          <button
+            data-category={tab.category}
+            key={tab.category}
+            onClick={onTabChange}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </header>
+  );
+};
+
+export { Header };
