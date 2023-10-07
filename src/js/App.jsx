@@ -1,23 +1,18 @@
-import { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Header } from "./components/react/Header";
-import { MainContent } from "./components/react/MainContent";
-import fetchEventsByCategories from "./services/api";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Account } from "./components/react/Account";
+import Home from "./components/react/Home";
+import EventDetails from "./components/react/EventDetails";
 
 const App = () => {
-  const [categoryData, setCategoryData] = useState([]);
-
-  const onTabChange = (e) => {
-    const category = e.target.dataset.category;
-
-    fetchEventsByCategories(category).then((data) => setCategoryData(data));
-  };
-
   return (
-    <>
-      <Header onTabChange={onTabChange} />
-      <MainContent categoryData={categoryData} />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

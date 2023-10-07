@@ -1,11 +1,19 @@
+import { Link } from "react-router-dom";
 import { homeTabs } from "../../config";
 
-const Header = ({ onTabChange }) => {
+const Header = ({ onTabChange, isAccount }) => {
   return (
     <header id="header" className="header">
-      <a href="./account.html" id="my-account">
-        {"My account >"}
-      </a>
+      {isAccount ? (
+        <Link to="/" id="back-events">
+          {"< Back to events"}
+        </Link>
+      ) : (
+        <Link to="/account" id="my-account">
+          {"My account >"}
+        </Link>
+      )}
+
       <div id="tabs" className="header__tabs">
         {/* Ojo esta marrado a home */}
         {homeTabs.map((tab) => (
