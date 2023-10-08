@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Account } from "./components/react/Account";
@@ -6,13 +7,15 @@ import EventDetails from "./components/react/EventDetails";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/event/:id" element={<EventDetails />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/event/:id" element={<EventDetails />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
   );
 };
 

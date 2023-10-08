@@ -2,39 +2,47 @@ import { useState } from "react";
 import { Header } from "./Header";
 import { MainContent } from "./MainContent";
 import { EventCard } from "./EventCard";
-import fetchEventsByCategories from "../../services/api";
+import { EventList } from "./EventList";
+import useEventByCategoryList from "./hooks/useEventList";
 
 const Home = () => {
-  const [categoryData, setCategoryData] = useState([]);
+  const [categoryId, setCategoryId] = useState();
+  const [eventList, status, setEventList] = useEventByCategoryList();
 
   const onTabChange = (e) => {
     const category = e.target.dataset.category;
 
-    fetchEventsByCategories(category).then((data) => setCategoryData(data));
+    setCategoryId(category);
+    // setEventList(category);
   };
 
   return (
     <>
       <Header onTabChange={onTabChange} />
-      <h1>Home</h1>
       <MainContent>
-        <ul className="container error-container gallery home-gallery">
-          {categoryData.length > 0
-            ? categoryData.map((category) => {
-                return (
-                  <EventCard
-                    key={category.id}
-                    eventId={category.id}
-                    price={category.price}
-                    date={category.date}
-                    title={category.title}
-                    image={category.image}
-                    location={category.location}
-                  />
-                );
-              })
-            : null}
-        </ul>
+        {/* Todo esto se puede mover a un componente especifico
+        el reto es como "conectarlo" con los handlers para tab */}
+        {/* {status === "loading" && <div>Un spinner aquí</div>}
+        {status === "loaded" && (
+          <ul className="container error-container gallery home-gallery">
+            {eventList.length > 0
+              ? eventList.map((category) => {
+                  return (
+                    <EventCard
+                      key={category.id}
+                      eventId={category.id}
+                      price={category.price}
+                      date={category.date}
+                      title={category.title}
+                      image={category.image}
+                      location={category.location}
+                    />
+                  );
+                })
+              : null}
+          </ul>
+        )} */}
+        <EventList categoryId={categoryId} />
       </MainContent>
     </>
   );

@@ -1,10 +1,13 @@
 import { Header } from "./Header";
+import { MainContent } from "./MainContent";
 
 const Account = () => {
   return (
     <>
       <Header isAccount />
-      <h1>Account</h1>
+      <MainContent>
+        <div>Revisar localStorage y hacer render del contenido</div>
+      </MainContent>
     </>
   );
 };

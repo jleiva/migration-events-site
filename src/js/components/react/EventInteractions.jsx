@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const GoingMessage = ({ handleGoingClick }) => {
-  console.log("handleGoingClick", handleGoingClick);
   return (
     <>
       <span className="check">✔</span>
@@ -36,18 +35,62 @@ const InterestedMessage = ({ handleGoingClick, handleInterstedClick }) => {
   );
 };
 
-export const EventInteractions = () => {
+// Todo lo relacionado con localStorage se podria mover
+// a un custom hook.
+
+// Falta remover eventos de las listas cuando deja de ser favorito, etc
+export const EventInteractions = (props) => {
   const [going, setGoing] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [intersted, setIntersted] = useState(false);
 
-  const handleGoingClick = () => setGoing(!going);
+  const getLocalEvents = () =>
+    JSON.parse(window.localStorage.getItem("events")) || {};
+
+  const handleGoingClick = () => {
+    const localEvents = getLocalEvents();
+    const prevGoing = localEvents?.going || [];
+
+    window.localStorage.setItem(
+      "events",
+      JSON.stringify({
+        ...localEvents,
+        going: [...prevGoing, props],
+      }),
+    );
+
+    setGoing(!going);
+  };
 
   const handleFavoriteClick = () => {
+    const localEvents = getLocalEvents();
+    const prevFavorites = localEvents?.favorites || [];
+
+    window.localStorage.setItem(
+      "events",
+      JSON.stringify({
+        ...localEvents,
+        favorites: [...prevFavorites, props],
+      }),
+    );
+
     setFavorite(!favorite);
   };
 
-  const handleInterstedClick = () => setIntersted(!intersted);
+  const handleInterstedClick = () => {
+    const localEvents = getLocalEvents();
+    const prevIntersted = localEvents?.intersted || [];
+
+    window.localStorage.setItem(
+      "events",
+      JSON.stringify({
+        ...localEvents,
+        intersted: [...prevIntersted, props],
+      }),
+    );
+
+    setIntersted(!intersted);
+  };
 
   return (
     <>

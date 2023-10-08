@@ -3,7 +3,6 @@ import formatDate from "../../utils/format-date";
 import { EventInteractions } from "./EventInteractions";
 
 const EventCard = (props) => {
-  console.log(props);
   return (
     <li className="gallery__card">
       <img src={props.image} alt={props.title} />
@@ -19,7 +18,7 @@ const EventCard = (props) => {
           </p>
           <strong>{props.price}</strong>
         </div>
-        <EventInteractions />
+        <EventInteractions {...props} />
       </div>
     </li>
   );
